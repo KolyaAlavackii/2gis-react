@@ -20,7 +20,13 @@ export default class MapComponent extends Component {
     }
 
     deleteMarker = (e) => {
+        const { lat, lng } = e.latlng
+        const marker = [lat, lng];
+        this.props.deleteMarker(marker);
+    }
 
+    currentPosClick = (e) => {
+        this.props.openSnackbar('Сan not be removed');
     }
 
     render() {
@@ -32,7 +38,7 @@ export default class MapComponent extends Component {
                 zoom={13}
                 onClick={this.createMarker}
             >
-                <Marker pos={center} />
+                <Marker pos={center} onClick={this.currentPosClick} />
                 {
                     markers.map((item, index) =>
                         <Marker
@@ -47,5 +53,7 @@ export default class MapComponent extends Component {
 }
 
 MapComponent.propTypes = {
-    createMarker: PropTypes.func
+    createMarker: PropTypes.func,
+    deleteMarker: PropTypes.func,
+    openSnackbar: PropTypes.func
 };

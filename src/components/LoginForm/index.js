@@ -32,7 +32,12 @@ export default class LoginForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.onLogin(this.state);
+        const { password, username } = this.state;
+        if (password && username) {
+            this.props.onLogin(this.state);
+        } else {
+            this.props.openSnackbar('Fill all fields');
+        }
     }
 
     render() {
@@ -67,5 +72,6 @@ export default class LoginForm extends Component {
 }
 
 LoginForm.propTypes = {
-    onLogin: PropTypes.func
+    onLogin: PropTypes.func,
+    openSnackbar: PropTypes.func
 };
